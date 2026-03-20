@@ -927,10 +927,22 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kvi-CR-M5S">
+                                <rect key="frame" x="273" y="172" width="133" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Выбрать карту" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ih9-I8-bJo">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="SelectCard:" target="XfG-lQ-9wD" id="MJd-h3-J3W"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="CardTable" destination="ZYb-ZU-BzJ" id="6SF-20-SjH"/>
+                        <outlet property="Move" destination="3sd-Sj-QWf" id="3tX-ts-daq"/>
                         <outlet property="SelectedCardTable" destination="kOg-RD-3GW" id="Ji6-zF-LdF"/>
                     </connections>
                 </viewController>

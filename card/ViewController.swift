@@ -12,13 +12,15 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     var hand_of_cards: [String] = []
     var selected_cards: [String] = []
-    
 
+    @IBOutlet weak var Move: NSTextField!
     @IBOutlet weak var CardTable: NSTableView!
     @IBOutlet weak var SelectedCardTable: NSTableView!
     @IBAction func StartButton(_ sender: Any) {
         let card = Card()
         hand_of_cards.removeAll()
+        selected_cards.removeAll()
+        SelectedCardTable.reloadData()
         
         for _ in 0...12 {
             hand_of_cards.append(card.out())
@@ -26,7 +28,23 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         
         CardTable.reloadData()
     }
-    
+    @IBAction func SelectCard(_ sender: Any) {
+        let row = CardTable.selectedRow
+        
+        if selected_cards.isEmpty {
+            selected_cards.append(hand_of_cards[row])
+            SelectedCardTable.reloadData()
+        }else {
+            if !comparison(row, hand_of_cards, selected_cards) ||
+                !comparsionRank(row, hand_of_cards, selected_cards){
+                SelectedCardTable.reloadData()
+            } else {
+                selected_cards.append(hand_of_cards[row])
+                SelectedCardTable.reloadData()
+            }
+        
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
