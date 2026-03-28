@@ -38,3 +38,5 @@ func comparison(_ row: Int, _ hand_of_cards: [String],_ selected_cards: [String]
     }
     return true
 }
+
+
