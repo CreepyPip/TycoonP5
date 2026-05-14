@@ -42,54 +42,127 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         CardTable.reloadData()
     }
     @IBAction func SelectCard(_ sender: Any) {
-        let row = CardTable.selectedRow
-        
-        if selected_cards.isEmpty {
-            selected_cards.append(hand_of_cards[row])
-            SelectedCardTable.reloadData()
-        }else {
-            if !comparison(row, hand_of_cards, selected_cards) ||
-                !comparsionRank(row, hand_of_cards, selected_cards){
-                SelectedCardTable.reloadData()
-            } else {
+        if MovesBool[0] {
+            let row = CardTable.selectedRow
+            
+            if selected_cards.isEmpty {
                 selected_cards.append(hand_of_cards[row])
                 SelectedCardTable.reloadData()
+            }else {
+                if !comparison(row, hand_of_cards, selected_cards) ||
+                    !comparsionRank(row, hand_of_cards, selected_cards){
+                    SelectedCardTable.reloadData()
+                } else {
+                    selected_cards.append(hand_of_cards[row])
+                    SelectedCardTable.reloadData()
+                }
             }
-        
         }
     }
     
     @IBAction func CardOnTableButton(_ sender: Any) {
-        
-        CardOnTable.stringValue = ""
-        
         var c = ""
         
-        for i in 0...selected_cards.count - 1 {
+        for i in 0..<selected_cards.count {
             c = "\(c) \(selected_cards[i])"
         }
-
-        hand_of_cards = hand_of_cards.filter { !selected_cards.contains($0) }
         
+        var exam = true
+        
+        if CardOnTable.stringValue != "Пас" &&
+            CardOnTable.stringValue != "" &&
+        c != "" {exam = bot1.playerBool(CardOnTable.stringValue, c)}
+        
+        if exam {
+            if MovesBool[0]{
+                
+                CardOnTable.stringValue = ""
+                
+                hand_of_cards = hand_of_cards.filter { !selected_cards.contains($0) }
+                
+                selected_cards.removeAll()
+                
+                CardTable.reloadData()
+                SelectedCardTable.reloadData()
+                
+                CardOnTable.stringValue = c
+                
+                if DeckEmpty(hand_of_cards) {
+                    let alert = NSAlert()
+                    alert.messageText = "Конец игры"
+                    alert.informativeText = "Вы победили"
+                    alert.alertStyle = .informational
+                    alert.addButton(withTitle: "OK")
+                }
+                
+                MovesBool[0] = false
+                MovesBool[1] = true
+                Moves()
+                
+                botInGame(c)}
+        }
+    }
+    @IBAction func CancellButton(_ sender: Any) {
         selected_cards.removeAll()
-
-        CardTable.reloadData()
         SelectedCardTable.reloadData()
-        
-        CardOnTable.stringValue = c
-        
-        MovesBool[0] = false
-        MovesBool[1] = true
-        Moves()
+    }
+    
+    @IBAction func PassButton(_ sender: Any) {
+        CardOnTable.stringValue = "Пас"
+        if MovesBool[0] {
+            MovesBool[0] = false
+            MovesBool[1] = true
+            Moves()
+            
+            botInGame("")}
+    }
+    var cc = ""
+    func botInGame(_ c: String){
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.CardOnTable.stringValue = bot1.actions(c)
-            MovesBool[0] = true
+            if bot1.DeckEmpty() {
+                let alert = NSAlert()
+                        alert.messageText = "Конец игры"
+                        alert.informativeText = "Бот победил"
+                        alert.alertStyle = .informational
+                        alert.addButton(withTitle: "OK")
+            }
+            MovesBool[2] = true
             MovesBool[1] = false
             self.Moves()
         }
         
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            self.cc = self.CardOnTable.stringValue
+            self.CardOnTable.stringValue = bot2.actions(self.cc)
+            if bot2.DeckEmpty() {
+                let alert = NSAlert()
+                        alert.messageText = "Конец игры"
+                        alert.informativeText = "Бот победил"
+                        alert.alertStyle = .informational
+                        alert.addButton(withTitle: "OK")
+            }
+            MovesBool[3] = true
+            MovesBool[2] = false
+            self.Moves()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            self.cc = self.CardOnTable.stringValue
+            self.CardOnTable.stringValue = bot3.actions(self.cc)
+            if bot3.DeckEmpty() {
+                let alert = NSAlert()
+                        alert.messageText = "Конец игры"
+                        alert.informativeText = "Бот победил"
+                        alert.alertStyle = .informational
+                        alert.addButton(withTitle: "OK")
+            }
+            MovesBool[0] = true
+            MovesBool[3] = false
+            self.Moves()
+        }
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

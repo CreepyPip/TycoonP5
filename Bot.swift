@@ -1,100 +1,178 @@
-//
-//  Bot.swift
-//  card
-//
-//  Created by Семён on 23.03.2026.
-//  Copyright © 2026 Семён. All rights reserved.
-//
+    //
+    //  Bot.swift
+    //  card
+    //
+    //  Created by Семён on 23.03.2026.
+    //  Copyright © 2026 Семён. All rights reserved.
+    //
 
-import Foundation
+    import Foundation
 
-class Bot{
-    
-    var name = ""
-    public var BotDeck: [String] = []
-    
-    init(_ name: String) {
-        self.name = ""
-    }
-    
-    func actions(_ cards: String) -> String {
-        let ranks = "(10|[2-9]|J|Q|K|A|Joker)"
-        let pattern = "\(ranks)"
+    class Bot {
         
+        var name = ""
+        public var BotDeck: [String] = []
         
-        if let regex = try? NSRegularExpression(pattern: pattern) {
-            let range = NSRange(cards.startIndex..., in: cards)
-            
-            let matches = regex.matches(in: cards, options: [], range: range)
-            
-            return BotAction(cards, Int(matches.count))
+        init(_ name: String) {
+            self.name = name
         }
         
-        return "res"
-    }
-    
-    private func BotAction (_ cards: String,_ num: Int) -> String {
+        func DeckEmpty() -> Bool {
+            if BotDeck.isEmpty {return true}
+            else {return false}
+        }
         
-        let suit = "♠♥♦♣"
-        let ranks = regex("(10|[2-9]|J|Q|K|A)")
-        let jokers = regex("Joker")
-        var c = ""
-        var j = 0
+        func actions(_ cards: String) -> String {
+            if cards == "" {
+                return playRandomCards()
+            }
+            return respondToPlayer(cards)
+        }
         
-        let rankindex = cards.firstIndex(where: { suit.contains($0) })!
-        let a = String(cards[cards.startIndex..<rankindex])
-        var firstcard = "0"
-        var curcard = ""
-        var cardindex = curcard.startIndex
+        private func playRandomCards() -> String {
+            guard !BotDeck.isEmpty else { return "Пас" }
+            
+            var rankGroups: [String: [String]] = [:]
+            var jokers: [String] = []
+            
+            for card in BotDeck {
+                if isJoker(card) { jokers.append(card) }
+                else if let r = getRank(from: card) { rankGroups[r, default: []].append(card) }
+            }
+            
+            guard let chosenRank = rankGroups.keys.randomElement() else {
+                let count = min(4, jokers.count)
+                let picked = jokers.prefix(count)
+                removeCards(from: &BotDeck, Array(picked))
+                return picked.joined(separator: " ")
+            }
+            
+            let maxFromRank = min(rankGroups[chosenRank]!.count, 4)
+            let countFromRank = Int.random(in: 1...maxFromRank)
+            
+            var result: [String] = []
+            result.append(contentsOf: rankGroups[chosenRank]!.prefix(countFromRank))
+            
+            let remainingSlots = 4 - result.count
+            if remainingSlots > 0 && !jokers.isEmpty {
+                let jokersToAdd = Int.random(in: 0...min(jokers.count, remainingSlots))
+                result.append(contentsOf: jokers.prefix(jokersToAdd))
+            }
+            
+            removeCards(from: &BotDeck, result)
+            return result.joined(separator: " ")
+        }
         
-        for i in 0...num-1 {
-            if i != 0 {
-                var randcard = "\(BotDeck.randomElement()!)"
-                if !jokers.matches(randcard){
-                cardindex = randcard.firstIndex(where: { suit.contains($0) })!
-                curcard = (String(randcard[randcard.startIndex..<cardindex]))
-                while (curcard != firstcard) ||
-                    jokers.matches(randcard) ||
-                    (j == 13) {
-                    randcard = "\(BotDeck.randomElement()!)"
-                        if jokers.matches(randcard){break}
-                    cardindex = randcard.firstIndex(where: { suit.contains($0) })!
-                    curcard = (String(randcard[randcard.startIndex..<cardindex]))
-                        j = j + 1
-                    }}
-                c = "\(c) \(randcard)"
-            } else {
-                while !(allowedCards(a, firstcard)) || (j == 13){
-                    c = "\(BotDeck.randomElement()!)"
-                    while jokers.matches(c) {
-                        cardindex = c.firstIndex(where: { suit.contains($0) })!
-                        firstcard = (String(c[c.startIndex..<cardindex]))
-                    }
-                j = j + 1
+        
+        private func respondToPlayer(_ playerCards: String) -> String {
+            let playerList = playerCards.components(separatedBy: " ").filter { !$0.isEmpty }
+            guard let targetRank = getRank(from: playerList.first ?? "") else { return "Пас" }
+            
+            let playerCount = playerList.count
+            guard playerCount >= 1 && playerCount <= 4 else { return "Пас" }
+            
+            var rankGroups: [String: [String]] = [:]
+            var jokers: [String] = []
+            for card in BotDeck {
+                if isJoker(card) { jokers.append(card) }
+                else if let r = getRank(from: card) { rankGroups[r, default: []].append(card) }
+            }
+            
+            let validRanks = rankGroups.filter { allowedCards($0.key, targetRank) }
+                .keys.sorted { (getWeight($0) ?? 0) > (getWeight($1) ?? 0) }
+            
+            guard !validRanks.isEmpty else { return "Пас" }
+            
+            for rank in validRanks {
+                var candidates = rankGroups[rank] ?? []
+                var result: [String] = []
+                
+                guard let first = candidates.first else { continue }
+                result.append(first)
+                candidates.removeFirst()
+                
+                let sameRankNeeded = playerCount - result.count
+                let sameRankAvailable = min(candidates.count, sameRankNeeded)
+                result.append(contentsOf: candidates.prefix(sameRankAvailable))
+                
+                
+                
+                let jokersNeeded = playerCount - result.count
+                if jokersNeeded > 0 && jokers.count >= jokersNeeded {
+                    result.append(contentsOf: jokers.prefix(jokersNeeded))
+                }
+                
+                
+                if result.count == playerCount {
+                    removeCards(from: &BotDeck, result)
+                    return result.joined(separator: " ")
+                }
+                result.removeAll()
+            }
+            
+            return "Пас"
+        }
+        
+        private func removeCards(from deck: inout [String], _ cards: [String]) {
+            for card in cards {
+                if let idx = deck.firstIndex(of: card) {
+                    deck.remove(at: idx)
                 }
             }
         }
         
-        return c
-    }
-    
-    private func allowedCards (_ rank1: String,_ rank2: String) -> Bool {
-        
-        var weights: [String: Int] = [
-            "J": 11, "Q": 12, "K": 13, "A": 14
-        ]
-        
-        for i in 2...10 {
-            weights[String(i)] = i
+        private func getRank(from card: String) -> String? {
+            let suits = "♠♥♦♣"
+            if let range = card.rangeOfCharacter(from: CharacterSet(charactersIn: suits)) {
+                return String(card[..<range.lowerBound])
+            }
+            return card.contains("Joker") ? "Joker" : nil
         }
         
-        let weight1 = weights[rank1] ?? 0
-        let weight2 = weights[rank2] ?? 0
+        private func isJoker(_ card: String) -> Bool {
+            return card.contains("Joker")
+        }
         
-        if (weight1 < weight2) && !(weight1 == 2) {return true}
-        else if (weight1 == 2) && (weight2 == 3) {return true}
-        return false
+        private func getWeight(_ text: String) -> Int {
+            let rank = text.replacingOccurrences(of: " ", with: "")
+            let weights: [String: Int] = [
+                "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+                "J": 11, "Q": 12, "K": 13, "A": 14, "Joker": 15
+            ]
+            return weights[rank] ?? 0
+        }
+        
+        private func allowedCards(_ rank1: String, _ rank2: String) -> Bool {
+            if rank1 == "Joker" { return true }
+            if rank1 == "2" && rank2 == "3" { return true }
+            
+            let w1 = getWeight(rank1)
+            let w2 = getWeight(rank2)
+            return w1 > w2
+        }
+        
+        func playerBool(_ bottext: String,_ playertext: String) -> Bool {
+            let suit = "♠♥♦♣"
+            
+            let botList = bottext.components(separatedBy: " ").filter { !$0.isEmpty }
+            let botCount = botList.count
+            
+            let playerList = playertext.components(separatedBy: " ").filter { !$0.isEmpty }
+            let playerCount = playerList.count
+            
+            let bt = bottext
+            let pt = playertext
+            
+            let rankbotindex = bottext.firstIndex(where: { suit.contains($0) })
+            let rankplayerindex = playertext.firstIndex(where: { suit.contains($0) })
+            
+            let rankbot = String((bottext[bottext.startIndex..<rankbotindex!]))
+            let rankplayer = String((playertext[playertext.startIndex..<rankplayerindex!]))
+
+            let booboo = allowedCards(rankplayer, rankbot)
+            
+            if booboo && botCount == playerCount {return true}
+            else {return false}
+            
+        }
     }
-}
-
-

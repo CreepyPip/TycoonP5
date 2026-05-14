@@ -39,4 +39,7 @@ func comparison(_ row: Int, _ hand_of_cards: [String],_ selected_cards: [String]
     return true
 }
 
-
+func DeckEmpty(_ hand_of_cards: [String]) -> Bool {
+    if hand_of_cards.isEmpty{return true}
+    else {return false}
+}
