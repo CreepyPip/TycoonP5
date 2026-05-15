@@ -49,8 +49,8 @@
             timestampString = "797561277.9995691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
             landmarkName = "CardOnTableButton(_:)"
             landmarkType = "7">
             <Locations>
@@ -100,8 +100,8 @@
             timestampString = "797561278.000276"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "CardOnTableButton(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -209,49 +209,129 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4D2DA126-492C-46F0-8F8D-2FA12E76F986"
+            uuid = "1080366D-93AB-4AD7-80F0-6FDE9BFD9C38"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Bot.swift"
+            filePath = "card/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "playerBool(_:_:)"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "botInGame(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "23E9478F-2EF9-4BA2-B22F-C4C45E34BF67"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "card/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "botInGame(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "72D4DAE9-301F-4B07-A1B8-02A9B25A8F81"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "card/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "botInGame(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA4182EB-43A6-41D1-83AD-27D3C0EBB12A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "card/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "botInGame(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "4D2DA126-492C-46F0-8F8D-2FA12E76F986 - ff5eee7fd044d46b"
+                  uuid = "DA4182EB-43A6-41D1-83AD-27D3C0EBB12A - cb6c0178353e192f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "card.Bot.playerBool(Swift.String, Swift.String) -&gt; Swift.Bool"
+                  symbolName = "card.ViewController.botInGame(Swift.String) -&gt; ()"
                   moduleName = "card"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ananas/Documents/%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%B7%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D1%8B/card/Bot.swift"
+                  urlString = "file:///Users/ananas/Documents/%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%B7%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D1%8B/card/card/ViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "175"
-                  endingLineNumber = "175"
-                  offsetFromSymbolStart = "930">
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "582">
                </Location>
                <Location
-                  uuid = "4D2DA126-492C-46F0-8F8D-2FA12E76F986 - e6bcda008c580276"
+                  uuid = "DA4182EB-43A6-41D1-83AD-27D3C0EBB12A - 9e611739df937c4"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #3 (Swift.Character) -&gt; Swift.Bool in card.Bot.playerBool(Swift.String, Swift.String) -&gt; Swift.Bool"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in card.ViewController.botInGame(Swift.String) -&gt; ()"
                   moduleName = "card"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ananas/Documents/%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%B7%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D1%8B/card/Bot.swift"
+                  urlString = "file:///Users/ananas/Documents/%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BD%D0%B0%D1%8F%20%D0%B8%D0%B7%20%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D1%8B/card/card/ViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "175"
-                  endingLineNumber = "175"
-                  offsetFromSymbolStart = "48">
+                  startingLineNumber = "124"
+                  endingLineNumber = "124"
+                  offsetFromSymbolStart = "114">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ADD9C0C2-0C95-44CE-AA28-842A752D5E37"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "card/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "CardOnTableButton(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A23E602-AFB8-4C70-8BA5-3FCCD0B5114B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "card/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "endgame(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

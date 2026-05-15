@@ -18,12 +18,22 @@
         }
         
         func DeckEmpty() -> Bool {
-            if BotDeck.isEmpty {return true}
-            else {return false}
+            if BotDeck.count == 0 {return true}
+            else if BotDeck.count == 1 ||
+                        BotDeck.count == 2 {
+                for i in 0..<BotDeck.count {
+                    if BotDeck[i] != "JokerB" &&
+                        BotDeck[i] != "JokerW" {
+                        return false
+                    }
+                }
+                return true
+                }
+            return false
         }
         
         func actions(_ cards: String) -> String {
-            if cards == "" {
+            if cards == "" || cards == "Пас" {
                 return playRandomCards()
             }
             return respondToPlayer(cards)
@@ -136,19 +146,17 @@
         private func getWeight(_ text: String) -> Int {
             let rank = text.replacingOccurrences(of: " ", with: "")
             let weights: [String: Int] = [
-                "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+                "2": 16, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
                 "J": 11, "Q": 12, "K": 13, "A": 14, "Joker": 15
             ]
             return weights[rank] ?? 0
         }
         
         private func allowedCards(_ rank1: String, _ rank2: String) -> Bool {
-            if rank1 == "Joker" { return true }
-            if rank1 == "2" && rank2 == "3" { return true }
             
             let w1 = getWeight(rank1)
             let w2 = getWeight(rank2)
-            return w1 > w2
+            return w1 > w2 || (w1 == 3 && w2 == 16)
         }
         
         func playerBool(_ bottext: String,_ playertext: String) -> Bool {
@@ -159,9 +167,6 @@
             
             let playerList = playertext.components(separatedBy: " ").filter { !$0.isEmpty }
             let playerCount = playerList.count
-            
-            let bt = bottext
-            let pt = playertext
             
             let rankbotindex = bottext.firstIndex(where: { suit.contains($0) })
             let rankplayerindex = playertext.firstIndex(where: { suit.contains($0) })

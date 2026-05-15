@@ -41,8 +41,8 @@ class Card {
             }
         }
         
-        d.append("Joker \(jokers[0])")
-        d.append("Joker \(jokers[1])")
+        d.append("Joker\(jokers[0])")
+        d.append("Joker\(jokers[1])")
         
         started = true
         

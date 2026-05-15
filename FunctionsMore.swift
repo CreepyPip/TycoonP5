@@ -40,6 +40,17 @@ func comparison(_ row: Int, _ hand_of_cards: [String],_ selected_cards: [String]
 }
 
 func DeckEmpty(_ hand_of_cards: [String]) -> Bool {
-    if hand_of_cards.isEmpty{return true}
-    else {return false}
+    print("Карт у игрока", hand_of_cards.count)
+    if hand_of_cards.count == 0 {return true}
+    else if hand_of_cards.count == 1 ||
+                hand_of_cards.count == 2 {
+        for i in 0..<hand_of_cards.count {
+            if hand_of_cards[i] != "JokerB" &&
+                hand_of_cards[i] != "JokerW" {
+                return false
+            }
+        }
+        return true
+        }
+    return false
 }
