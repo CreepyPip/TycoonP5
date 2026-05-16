@@ -42,19 +42,22 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         CardTable.reloadData()
     }
     @IBAction func SelectCard(_ sender: Any) {
-        if MovesBool[0] {
-            let row = CardTable.selectedRow
-            
-            if selected_cards.isEmpty {
-                selected_cards.append(hand_of_cards[row])
-                SelectedCardTable.reloadData()
-            }else {
-                if !comparison(row, hand_of_cards, selected_cards) ||
-                    !comparsionRank(row, hand_of_cards, selected_cards){
-                    SelectedCardTable.reloadData()
-                } else {
+        
+        if CardTable.selectedRow != -1 {
+            if MovesBool[0] {
+                let row = CardTable.selectedRow
+                
+                if selected_cards.isEmpty {
                     selected_cards.append(hand_of_cards[row])
                     SelectedCardTable.reloadData()
+                }else {
+                    if !comparison(row, hand_of_cards, selected_cards) ||
+                        !comparsionRank(row, hand_of_cards, selected_cards){
+                        SelectedCardTable.reloadData()
+                    } else {
+                        selected_cards.append(hand_of_cards[row])
+                        SelectedCardTable.reloadData()
+                    }
                 }
             }
         }
