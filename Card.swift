@@ -9,7 +9,7 @@
 import Foundation
 
 class Card {
-    var started = false
+    public var started = false
     var cards: [String] = []
     
     private var rank: [String] = ["2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -32,6 +32,7 @@ class Card {
         return card
     }
     
+    // Создание колоды
     private func deck() -> [String] {
         var d: [String] = []
         

@@ -40,14 +40,13 @@
         }
         
         private func playRandomCards() -> String {
-            guard !BotDeck.isEmpty else { return "Пас" }
             
             var rankGroups: [String: [String]] = [:]
             var jokers: [String] = []
             
             for card in BotDeck {
                 if isJoker(card) { jokers.append(card) }
-                else if let r = getRank(from: card) { rankGroups[r, default: []].append(card) }
+                else if let r = getRank(card) { rankGroups[r, default: []].append(card) }
             }
             
             guard let chosenRank = rankGroups.keys.randomElement() else {
@@ -76,7 +75,7 @@
         
         private func respondToPlayer(_ playerCards: String) -> String {
             let playerList = playerCards.components(separatedBy: " ").filter { !$0.isEmpty }
-            guard let targetRank = getRank(from: playerList.first ?? "") else { return "Пас" }
+            guard let targetRank = getRank(playerList.first ?? "") else { return "Пас" }
             
             let playerCount = playerList.count
             guard playerCount >= 1 && playerCount <= 4 else { return "Пас" }
@@ -85,7 +84,7 @@
             var jokers: [String] = []
             for card in BotDeck {
                 if isJoker(card) { jokers.append(card) }
-                else if let r = getRank(from: card) { rankGroups[r, default: []].append(card) }
+                else if let r = getRank(card) { rankGroups[r, default: []].append(card) }
             }
             
             let validRanks = rankGroups.filter { allowedCards($0.key, targetRank) }
@@ -131,7 +130,7 @@
             }
         }
         
-        private func getRank(from card: String) -> String? {
+        private func getRank(_ card: String) -> String? {
             let suits = "♠♥♦♣"
             if let range = card.rangeOfCharacter(from: CharacterSet(charactersIn: suits)) {
                 return String(card[..<range.lowerBound])

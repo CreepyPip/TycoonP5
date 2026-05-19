@@ -26,11 +26,17 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet weak var CardTable: NSTableView!
     @IBOutlet weak var SelectedCardTable: NSTableView!
     @IBOutlet weak var CardOnTable: NSTextField!
+    
+    // Начать игру
     @IBAction func StartButton(_ sender: Any) {
         let card = Card()
         hand_of_cards.removeAll()
         selected_cards.removeAll()
         SelectedCardTable.reloadData()
+        
+        bot1.BotDeck.removeAll()
+        bot2.BotDeck.removeAll()
+        bot3.BotDeck.removeAll()
         
         for _ in 0...12 {
             hand_of_cards.append(card.out())
@@ -40,7 +46,10 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         }
         
         CardTable.reloadData()
+        card.started = false
     }
+    
+    // Выбрать карту
     @IBAction func SelectCard(_ sender: Any) {
         
         if CardTable.selectedRow != -1 {
@@ -63,7 +72,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         }
     }
     
+    // Выложить карты на стол
     @IBAction func CardOnTableButton(_ sender: Any) {
+        
         if !selected_cards.isEmpty{
         var c = ""
         
@@ -71,11 +82,13 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             c = "\(c) \(selected_cards[i])"
         }
         
+            let cc = countexam(c, CardOnTable.stringValue)
+            
         var exam = true
         
         if CardOnTable.stringValue != "Пас" &&
             CardOnTable.stringValue != "" &&
-        c != "" {exam = bot1.playerBool(CardOnTable.stringValue, c)}
+        c != "" {exam = bot1.playerBool(CardOnTable.stringValue, cc)}
         
             if exam {
                 if MovesBool[0]{
@@ -104,27 +117,38 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                     MovesBool[1] = true
                     Moves()
                     
-                    counting = 0
+                    
                     botInGame(c)}}
         }
     }
     
+    // Переменная для подсчёта пасующих
     var counting = 0
     
-    func countexam(_ text: String) -> Bool {
+    // Проверка на возможность сброса
+    func countexam(_ text: String,_ pre: String) -> String {
         if text == "Пас" ||
             text == "" {
             counting = counting + 1
-            return true
-        }
-        counting = 0
-        return false
+            if counting == 3 {
+                counting = 0
+                return "Пас"}
+            return pre
+        } else {counting = 0}
+        return text
     }
     
+    // Действия 3 ботов
     func botInGame(_ c: String){
-        let bact1 = bot1.actions(c)
-        let bact2 = bot2.actions(bact1)
-        let bact3 = bot3.actions(bact2)
+        var cc = c
+        var bact1 = ""
+        var bact2 = ""
+        var bact3 = ""
+        cc = countexam(c, CardOnTable.stringValue)
+        bact1 = countexam(bot1.actions(cc), cc)
+        bact2 = countexam(bot2.actions(bact1), bact1)
+        bact3 = countexam(bot3.actions(bact2), bact2)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.CardOnTable.stringValue = bact1
             if bot1.DeckEmpty() {
@@ -171,24 +195,25 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         }
     }
     
+    // Положить карты обратно
     @IBAction func CancellButton(_ sender: Any) {
         selected_cards.removeAll()
         SelectedCardTable.reloadData()
     }
     
+    // Пасовать
     @IBAction func PassButton(_ sender: Any) {
-        CardOnTable.stringValue = "Пас"
         if MovesBool[0] {
             MovesBool[0] = false
             MovesBool[1] = true
             Moves()
             
-            counting = counting + 1
+            let c = countexam("", CardOnTable.stringValue)
             
-            botInGame("")}
+            botInGame(c)}
     }
-    var cc = ""
     
+    // Вывод победителя на экран
     func endgame(_ name: String){
         CardOnTable.stringValue = "\(name) победил"
     }

@@ -7,12 +7,12 @@
 //
 
 import Foundation
-
+// Возможность игрока выложить карты
 func comparsionRank (_ row: Int, _ hand_of_cards: [String],_ selected_cards: [String]) -> Bool {
     let ranks = "♠♥♦♣"
     
-    if hand_of_cards[row] == "Joker W" ||
-        hand_of_cards[row] == "Joker B" {
+    if hand_of_cards[row] == "JokerW" ||
+        hand_of_cards[row] == "JokerB" {
         return true
     }
     
@@ -30,6 +30,7 @@ func comparsionRank (_ row: Int, _ hand_of_cards: [String],_ selected_cards: [St
     return false
 }
 
+// Взял ли игрок карту
 func comparison(_ row: Int, _ hand_of_cards: [String],_ selected_cards: [String]) -> Bool {
     for i in 0...selected_cards.count - 1 {
         if selected_cards[i] == hand_of_cards[row]{
@@ -39,8 +40,8 @@ func comparison(_ row: Int, _ hand_of_cards: [String],_ selected_cards: [String]
     return true
 }
 
+// Проверка на пустую колоду игрока
 func DeckEmpty(_ hand_of_cards: [String]) -> Bool {
-    print("Карт у игрока", hand_of_cards.count)
     if hand_of_cards.count == 0 {return true}
     else if hand_of_cards.count == 1 ||
                 hand_of_cards.count == 2 {
