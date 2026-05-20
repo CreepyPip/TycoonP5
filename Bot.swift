@@ -88,7 +88,7 @@
             }
             
             let validRanks = rankGroups.filter { allowedCards($0.key, targetRank) }
-                .keys.sorted { (getWeight($0) ?? 0) > (getWeight($1) ?? 0) }
+                .keys.sorted { (getWeight($0) ) > (getWeight($1) ) }
             
             guard !validRanks.isEmpty else { return "Пас" }
             

@@ -14,10 +14,8 @@
 		035B40BC2F5682CF0069B240 /* cardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035B40BB2F5682CF0069B240 /* cardTests.swift */; };
 		035B40C72F5682CF0069B240 /* cardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035B40C62F5682CF0069B240 /* cardUITests.swift */; };
 		03734AC32F70EDC00046773B /* Bot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03734AC22F70EDC00046773B /* Bot.swift */; };
-		039EEFA62F76223D00070CD8 /* regex5.7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039EEFA52F76223D00070CD8 /* regex5.7.swift */; };
 		03ACE3C52F5BBE9600C47192 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03ACE3C42F5BBE9600C47192 /* Card.swift */; };
 		03D541632F6D45F100E2B547 /* FunctionsMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D541622F6D45F100E2B547 /* FunctionsMore.swift */; };
-		03E4831B2FBB32620060BD84 /* card in Resources */ = {isa = PBXBuildFile; fileRef = 03E4831A2FBB32620060BD84 /* card */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,10 +50,8 @@
 		035B40C62F5682CF0069B240 /* cardUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cardUITests.swift; sourceTree = "<group>"; };
 		035B40C82F5682CF0069B240 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03734AC22F70EDC00046773B /* Bot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bot.swift; sourceTree = "<group>"; };
-		039EEFA52F76223D00070CD8 /* regex5.7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = regex5.7.swift; path = "../../OOP-main/chat/regex5.7.swift"; sourceTree = "<group>"; };
 		03ACE3C42F5BBE9600C47192 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		03D541622F6D45F100E2B547 /* FunctionsMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionsMore.swift; sourceTree = "<group>"; };
-		03E4831A2FBB32620060BD84 /* card */ = {isa = PBXFileReference; lastKnownFileType = folder; name = card; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +82,6 @@
 		035B409C2F5682CB0069B240 = {
 			isa = PBXGroup;
 			children = (
-				039EEFA52F76223D00070CD8 /* regex5.7.swift */,
 				03734AC22F70EDC00046773B /* Bot.swift */,
 				03D541622F6D45F100E2B547 /* FunctionsMore.swift */,
 				03ACE3C42F5BBE9600C47192 /* Card.swift */,
@@ -116,7 +111,6 @@
 				035B40AE2F5682CF0069B240 /* Main.storyboard */,
 				035B40B12F5682CF0069B240 /* Info.plist */,
 				035B40B22F5682CF0069B240 /* card.entitlements */,
-				03E4831A2FBB32620060BD84 /* card */,
 			);
 			path = card;
 			sourceTree = "<group>";
@@ -244,7 +238,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				035B40AD2F5682CF0069B240 /* Assets.xcassets in Resources */,
-				03E4831B2FBB32620060BD84 /* card in Resources */,
 				035B40B02F5682CF0069B240 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,7 +265,6 @@
 			files = (
 				035B40AB2F5682CB0069B240 /* ViewController.swift in Sources */,
 				03ACE3C52F5BBE9600C47192 /* Card.swift in Sources */,
-				039EEFA62F76223D00070CD8 /* regex5.7.swift in Sources */,
 				03D541632F6D45F100E2B547 /* FunctionsMore.swift in Sources */,
 				035B40A92F5682CB0069B240 /* AppDelegate.swift in Sources */,
 				03734AC32F70EDC00046773B /* Bot.swift in Sources */,
@@ -449,6 +441,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = pipu.card;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
@@ -467,6 +460,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = pipu.card;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
